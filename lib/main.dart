@@ -1,3 +1,4 @@
+// document : https://medium.com/flutter-community/making-sense-all-of-those-flutter-providers-e842e18f45dd
 import 'package:flutter/material.dart';
 import './screens/product_detail_screen.dart';
 import './screens/products_overview_screen.dart';
