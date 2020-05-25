@@ -12,9 +12,10 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context);
+    // listen false để nói không lắng nghe rebuild lại khi có thay đổi
+    final product = Provider.of<Product>(context, listen: false);
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(10),
       child: GridTile(
         child: GestureDetector(
           child: Image.network(
@@ -30,10 +31,17 @@ class ProductItem extends StatelessWidget {
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
-            icon: Icon(Icons.favorite), 
-            color: Theme.of(context).accentColor,
-            onPressed: (){}
+          //sử dụng consumer để nói rằng tao chỉ rebuild lại khi có thay đổi
+          leading: Consumer<Product>(
+            builder: (ctx, product, child) => IconButton(
+              icon: Icon(
+                product.isFavorite ? Icons.favorite : Icons.favorite_border
+              ), 
+              color: Theme.of(context).accentColor,
+              onPressed: (){
+                product.toggleFavoriteStatus();
+              }
+            ),
           ),
           title: Text(
             product.title,
